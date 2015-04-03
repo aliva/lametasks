@@ -13,7 +13,6 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "priority",
-        "status",
         "list",
         "due_date",
     )
@@ -44,6 +43,11 @@ class TaskAdmin(admin.ModelAdmin):
         if 'delete_selected' in actions:
             del actions['delete_selected']
         return actions
+
+    def get_readonly_fields(self, request, obj):
+        if obj.status == Task.STATUS.active:
+            return self.readonly_fields
+        return self.list_display + self.readonly_fields
 
     def save_model(self, request, obj, form, change):
         if obj.id is None:
