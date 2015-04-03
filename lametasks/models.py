@@ -23,6 +23,7 @@ class Task(BaseClass):
     objects = TaskQuerySet.as_manager()
 
     name = models.CharField(max_length=140)
+    due_date = models.DateField(blank=True, null=True)
     completed_on = models.DateTimeField(blank=True, null=True)
     deleted_on = models.DateTimeField(blank=True, null=True)
     list = models.ForeignKey("List", blank=True, null=True)
@@ -48,6 +49,7 @@ class Task(BaseClass):
         self.status = status
         if status == Task.STATUS.deleted:
             self.completed_on=None
+            self.due_date=None
             self.name="DELETED"
             self.list=None
             self.priority=Task.PRIORITY.none

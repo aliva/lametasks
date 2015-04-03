@@ -14,7 +14,8 @@ class TaskAdmin(admin.ModelAdmin):
         "name",
         "priority",
         "status",
-        "list"
+        "list",
+        "due_date",
     )
     readonly_fields = (
         "status",
