@@ -19,6 +19,9 @@ class TaskQuerySet(models.QuerySet):
             self.update(deleted_on=None)
             self.filter(completed_on__isnull=True).update(completed_on=timezone.now())
 
+    def change_priority(self, priority):
+        self.filter(status=Task.STATUS.active).update(priority=priority)
+
 class Task(BaseClass):
     objects = TaskQuerySet.as_manager()
 

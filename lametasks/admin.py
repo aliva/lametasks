@@ -64,16 +64,16 @@ class TaskAdmin(admin.ModelAdmin):
         queryset.change_status(Task.STATUS.done)
 
     def set_priority_none(self, request, queryset):
-        queryset.update(priority=Task.PRIORITY.none)
+        queryset.change_priority(Task.PRIORITY.none)
 
     def set_priority_low(self, request, queryset):
-        queryset.update(priority=Task.PRIORITY.low)
+        queryset.change_priority(Task.PRIORITY.low)
 
     def set_priority_normal(self, request, queryset):
-        queryset.update(priority=Task.PRIORITY.normal)
+        queryset.change_priority(Task.PRIORITY.normal)
 
     def set_priority_high(self, request, queryset):
-        queryset.update(priority=Task.PRIORITY.high)
+        queryset.change_priority(Task.PRIORITY.high)
 
 @admin.register(List)
 class ListAdmin(admin.ModelAdmin):
