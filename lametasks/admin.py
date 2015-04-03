@@ -25,7 +25,7 @@ class TaskAdmin(admin.ModelAdmin):
     )
     ordering = (
         "status",
-        "priority",
+        "-priority",
         "name",
     )
     actions = (

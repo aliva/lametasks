@@ -35,12 +35,12 @@ class Task(BaseClass):
     )
     status = StatusField(choices_name="STATUS", default=STATUS.active)
     PRIORITY = Choices(
-        "none",
-        "low",
-        "normal",
-        "high",
+        (0, "none", "none"),
+        (1, "low", "low"),
+        (2, "normal", "normal"),
+        (3, "high", "high"),
     )
-    priority = StatusField(choices_name="PRIORITY", default=PRIORITY.none)
+    priority = models.PositiveSmallIntegerField(choices=PRIORITY, default=PRIORITY.none)
 
     def __str__(self):
         return self.name
