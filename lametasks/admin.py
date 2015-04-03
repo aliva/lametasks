@@ -30,11 +30,14 @@ class TaskAdmin(admin.ModelAdmin):
     )
     actions = (
         "mark_as_done",
+        "set_priority_high",
+        "set_priority_normal",
+        "set_priority_low",
+        "set_priority_none",
     )
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        return qs.filter(owner=request.user)
+        return super().get_queryset(request).filter(owner=request.user)
 
     def get_actions(self, request):
         actions = super().get_actions(request)
@@ -56,11 +59,26 @@ class TaskAdmin(admin.ModelAdmin):
     def mark_as_done(self, request, queryset):
         queryset.change_status(Task.STATUS.done)
 
+    def set_priority_none(self, request, queryset):
+        queryset.update(priority=Task.PRIORITY.none)
+
+    def set_priority_low(self, request, queryset):
+        queryset.update(priority=Task.PRIORITY.low)
+
+    def set_priority_normal(self, request, queryset):
+        queryset.update(priority=Task.PRIORITY.normal)
+
+    def set_priority_high(self, request, queryset):
+        queryset.update(priority=Task.PRIORITY.high)
+
 @admin.register(List)
 class ListAdmin(admin.ModelAdmin):
     readonly_fields = (
         "owner",
     )
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(owner=request.user)
 
     def save_model(self, request, obj, form, change):
         if obj.id is None:
