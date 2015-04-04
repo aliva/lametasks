@@ -45,8 +45,8 @@ class TaskAdmin(admin.ModelAdmin):
             del actions['delete_selected']
         return actions
 
-    def get_readonly_fields(self, request, obj):
-        if obj.status == Task.STATUS.active:
+    def get_readonly_fields(self, request, obj=None):
+        if obj is None or obj.status == Task.STATUS.active:
             return self.readonly_fields
         return self.list_display + self.readonly_fields
 
