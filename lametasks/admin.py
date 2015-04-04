@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .filter import TaskStatusListFilter
+from .filters import TaskStatusListFilter
 from .models import Task
 from .models import List
 
