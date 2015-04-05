@@ -22,6 +22,7 @@ class TaskAdmin(admin.ModelAdmin):
         "owner",
         "completed_on",
         "deleted_on",
+        "postponed",
     )
     ordering = (
         "status",

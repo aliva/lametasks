@@ -44,6 +44,7 @@ class Task(BaseClass):
         (3, "high", "high"),
     )
     priority = models.PositiveSmallIntegerField(choices=PRIORITY, default=PRIORITY.none)
+    postponed = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -51,6 +52,7 @@ class Task(BaseClass):
     def change_status(self, status):
         self.status = status
         if status == Task.STATUS.deleted:
+            self.postponed=0
             self.completed_on=None
             self.due_date=None
             self.name="DELETED"
