@@ -36,6 +36,7 @@ class TaskAdmin(admin.ModelAdmin):
         "set_priority_normal",
         "set_priority_low",
         "set_priority_none",
+        "postpone",
     )
 
     def get_queryset(self, request):
@@ -77,6 +78,10 @@ class TaskAdmin(admin.ModelAdmin):
 
     def set_priority_high(self, request, queryset):
         queryset.change_priority(Task.PRIORITY.high)
+
+    def postpone(self, request, queryset):
+        for task in queryset.all():
+            task.postpone()
 
 @admin.register(List)
 class ListAdmin(admin.ModelAdmin):

@@ -62,6 +62,15 @@ class Task(BaseClass):
                 self.deleted_on=timezone.now()
         self.save()
 
+    def postpone(self):
+        now = timezone.now().date()
+        if self.due_date is None or self.due_date < now:
+            self.due_date = now
+        else:
+            self.due_date += timezone.timedelta(1)
+        self.postponed += 1
+        self.save()
+
 class List(BaseClass):
     name = models.CharField(max_length=140)
 
