@@ -63,6 +63,8 @@ class Task(BaseClass):
         self.save()
 
     def postpone(self):
+        if self.status != Task.STATUS.active:
+            return
         now = timezone.now().date()
         if self.due_date is None or self.due_date < now:
             self.due_date = now
