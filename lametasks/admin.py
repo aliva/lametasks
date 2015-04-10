@@ -49,8 +49,10 @@ class TaskAdmin(admin.ModelAdmin):
         return actions
 
     def get_readonly_fields(self, request, obj=None):
-        if obj is None or obj.status == Task.STATUS.active:
+        if obj is None or obj.id is None:
             return self.readonly_fields
+        if obj.status == Task.STATUS.active:
+            return self.readonly_fields + ("priority",)
         return self.list_display + self.readonly_fields
 
     def save_model(self, request, obj, form, change):
