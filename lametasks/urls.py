@@ -7,4 +7,5 @@ router.register(r"tasks", views.TaskViewSet)
 
 urlpatterns = [
     url("^api/", include(router.urls)),
+    url("^$", views.index),
 ]

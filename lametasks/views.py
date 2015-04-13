@@ -1,8 +1,12 @@
+from django.shortcuts import render
 from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework.response import Response
 from .models import Task
 from .serializers import TaskSerializer
+
+def index(request):
+    return render(request, "lametasks/index.html")
 
 class TaskViewSet(viewsets.GenericViewSet):
     queryset = Task.objects.all()
