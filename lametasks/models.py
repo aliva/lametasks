@@ -18,6 +18,8 @@ class TaskQuerySet(models.QuerySet):
         if status == Task.STATUS.done:
             self.update(deleted_on=None)
             self.filter(completed_on__isnull=True).update(completed_on=timezone.now())
+        if status == Task.STATUS.archived:
+            pass
 
     def change_priority(self, priority):
         self.filter(status=Task.STATUS.active).update(priority=priority)

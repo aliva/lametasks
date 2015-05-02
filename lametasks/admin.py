@@ -32,6 +32,7 @@ class TaskAdmin(admin.ModelAdmin):
     )
     actions = (
         "mark_as_done",
+        "mark_as_archived",
         "set_priority_high",
         "set_priority_normal",
         "set_priority_low",
@@ -68,6 +69,9 @@ class TaskAdmin(admin.ModelAdmin):
 
     def mark_as_done(self, request, queryset):
         queryset.change_status(Task.STATUS.done)
+
+    def mark_as_archived(self, request, queryset):
+        queryset.change_status(Task.STATUS.archived)
 
     def set_priority_none(self, request, queryset):
         queryset.change_priority(Task.PRIORITY.none)
